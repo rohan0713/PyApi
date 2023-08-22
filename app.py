@@ -12,13 +12,21 @@ def showProfile():
     }
     return jsonify(result)
 
-@app.route('/meals')
+@app.route('/meals', methods=['GET'])
 def showMeals():
 
     dbs = client.Meals
     collection = dbs.lunch
     documents = collection.find()
     return json.dumps([meal for meal in documents], default=str)
+
+@app.route('/users', methods=['POST'])
+def showUsers():
+    dbs = client.myApp
+    collection = dbs.users
+    documents = collection.find()
+    return json.dumps([users for users in documents], default=str)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
