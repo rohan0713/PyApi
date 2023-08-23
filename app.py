@@ -55,5 +55,17 @@ def createUser():
     else:
         return 'Content-Type not supported'    
 
+@app.route('/user/update/<string:username>', methods=['PUT'])
+def updateUser(username):
+
+    dbs = client.myApp
+    collection = dbs.users
+
+    myQuery = {"username": username}
+    newValues = {"$set": {"status": 0, "password": "harry"}}
+
+    collection.update_many(myQuery, newValues)
+    return username +  "'s Profile updated successfully"
+
 if __name__ == "__main__":
     app.run(debug=True)
